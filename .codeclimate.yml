@@ -3,6 +3,8 @@ engines:
     enabled: true
   eslint:
     enabled: true
+    config:
+      config: path/to/.eslintrc
   duplication:
     enabled: true
     config:
