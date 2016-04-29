@@ -3,7 +3,14 @@ const bcrypt = require('bcrypt')
 
 const userSchema = mongoose.Schema({
   email: String,
-  password: String
+  password: String,
+  fb: {
+    id: String,
+    firstName: String,
+    lastName: String,
+    accessToken: String,
+    refreshToken: String
+  }
 })
 
 userSchema.statics.encrypt = function (password) {
