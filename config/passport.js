@@ -6,6 +6,7 @@ const localSignUp = new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function (req, email, password, done) {
+  console.log(email,password)
   User.findOne({'email': email}, function (err, user) {
     if (err) return done(err)
     if (user) {
@@ -13,10 +14,10 @@ const localSignUp = new LocalStrategy({
     } else {
       var newUser = new User()
       newUser.email = email
-      newUser.local.password = User.encrypt(password)
+      newUser.password = User.encrypt(password)
       newUser.save(function (err, user) {
         if (err) return done(err)
-        return done(null, user)
+        return done(null, user, {message: 'User created!'})
       })
     }
   })
