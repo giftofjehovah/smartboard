@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const passport = require('passport')
@@ -5,6 +6,7 @@ const logger = require('morgan')
 const bodyParser = require('body-parser')
 const localPassport = require('./config/passport')
 const loginRoutes = require('./config/routes/loginRoutes')
+const socialRoutes = require('./config/routes/socialRoutes')
 
 const port = process.env.PORT || 3000
 const mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/smartboard'
@@ -32,3 +34,4 @@ app.use(passport.initialize())
 localPassport(passport)
 
 app.use('/', loginRoutes)
+app.use('/auth', socialRoutes)
