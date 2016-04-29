@@ -2,10 +2,10 @@
   "name": "smartboard",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server.js",
-    "dev-start": "nodemon server.js",
+    "start": "node app.js",
+    "dev-start": "nodemon app.js",
     "build": "browserify -t [ babelify ] ./frontend/*.js -o ./public/js/bundle.js",
     "dev-build": "watchify -t [ babelify ] ./public/js/client.js -o ./public/js/bundle.js",
     "dev": "npm run dev-build & npm run dev-start",
