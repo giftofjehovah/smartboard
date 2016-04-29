@@ -4,6 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node server.js",
+    "dev-start": "nodemon server.js",
+    "build": "browserify -t [ babelify ] ./frontend/*.js -o ./public/js/bundle.js",
+    "dev-build": "watchify -t [ babelify ] ./public/js/client.js -o ./public/js/bundle.js",
+    "dev": "npm run dev-build & npm run dev-start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,6 +35,7 @@
     "forecast.io": "0.0.9",
     "jsonwebtoken": "^6.1.1",
     "moment": "^2.13.0",
+    "mongoose": "^4.4.14",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
