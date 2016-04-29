@@ -6,7 +6,6 @@ const localSignUp = new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function (req, email, password, done) {
-  console.log(email,password)
   User.findOne({'email': email}, function (err, user) {
     if (err) return done(err)
     if (user) {
