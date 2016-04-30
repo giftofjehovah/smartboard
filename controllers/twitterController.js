@@ -1,13 +1,14 @@
 const Twitter = require('twitter')
+var client
 
-var client = new Twitter({
-  consumer_key: process.env.TWITTER_APP_KEY,
-  consumer_secret: process.env.TWITTER_APP_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_APP_ACCESS_TOKEN,
-  access_token_secret: process.env.TWITTER_APP_ACCESS_SECRET
-})
+function twitter (req, res, done, token, tokenSecret) {
+  client = new Twitter({
+    consumer_key: process.env.TWITTER_APP_KEY,
+    consumer_secret: process.env.TWITTER_APP_CONSUMER_SECRET,
+    access_token_key: token,
+    access_token_secret: tokenSecret
+  })
 
-function twitter (req, res, done) {
   client.get('statuses/user_timeline', {count: 1}, function (err, tweets, response) {
     if (err) return done(err)
     res.json(tweets)

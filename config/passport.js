@@ -1,6 +1,7 @@
 const User = require('../models/user.js')
 const LocalStrategy = require('passport-local').Strategy
 const FacebookStrategy = require('passport-facebook').Strategy
+const TwitterStrategy = require('passport-twitter').Strategy
 
 const localSignUp = new LocalStrategy({
   usernameField: 'email',
@@ -58,10 +59,31 @@ const facebook = new FacebookStrategy({
   })
 })
 
+const twitter = new TwitterStrategy({
+  consumerKey: process.env.TWITTER_APP_KEY,
+  consumerSecret: process.env.TWITTER_APP_CONSUMER_SECRET,
+  callbackURL: 'http://localhost:3000/auth/twitter/callback'
+}, function (token, token_secret, profile, done) {
+  User.findOne({email: 'leok'}, function (err, user) {
+    if (err) return done(err)
+    if (!user) return done(null, false, {message: 'Cant find your profile, please try to login again'})
+    user.twitter.id = profile.id
+    user.twitter.name = profile.displayName
+    user.twitter.username = profile.username
+    user.twitter.token = token
+    user.twitter.tokenSecret = token_secret
+    user.save(function (err, user) {
+      if (err) return done(err)
+      return done(null, user, {message: 'twitter profile saved'})
+    })
+  })
+})
+
 function passport (passport) {
   passport.use('local-signup', localSignUp)
   passport.use('local-signin', localSignIn)
   passport.use('facebook', facebook)
+  passport.use('twitter', twitter)
 }
 
 module.exports = passport

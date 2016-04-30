@@ -8,4 +8,10 @@ router.route('/facebook')
 router.route('/facebook/callback')
   .get(socialController.facebookCallback)
 
+router.route('/twitter')
+  .get(socialController.twitterLogin)
+
+router.route('/twitter/callback')
+  .get(socialController.twitterCallback)
+
 module.exports = router

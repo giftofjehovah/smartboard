@@ -10,6 +10,13 @@ const userSchema = mongoose.Schema({
     lastName: String,
     accessToken: String,
     refreshToken: String
+  },
+  twitter: {
+    id: String,
+    name: String,
+    username: String,
+    token: String,
+    tokenSecret: String
   }
 })
 
