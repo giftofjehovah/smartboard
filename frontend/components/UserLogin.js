@@ -10,6 +10,11 @@ class UserLogin extends React.Component {
     })
   }
 
+  localLogin (event) {
+    event.preventDefault()
+    console.log('login')
+  }
+
   render () {
     return (
       <div className='container'>
@@ -22,7 +27,7 @@ class UserLogin extends React.Component {
                 <h6 className='card-meta'>Please fill up your information</h6>
               </div>
               <div className='card-body'>
-                <form>
+                <form onSubmit={this.localLogin}>
                   <div className='form-group'>
                     <div className='input-group'>
                       <span className='input-group-addon'><i className='fa fa-envelope'></i></span>

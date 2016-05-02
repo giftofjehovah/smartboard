@@ -5,6 +5,7 @@ const passport = require('passport')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const path = require('path')
 // const twitterController = require('./controllers/twitterController')
 const localPassport = require('./config/passport')
 const loginRoutes = require('./config/routes/loginRoutes')
@@ -38,6 +39,10 @@ if (app.get('env') === 'development') {
 // app.set('views', './public')
 // app.set('view engine', 'ejs')
 app.use(express.static('./public'))
+app.use('/auth', socialRoutes)
+app.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
+})
 app.use(logger('dev'))
 app.use(bodyParser())
 
@@ -46,4 +51,3 @@ app.use(passport.initialize())
 localPassport(passport)
 
 app.use('/', loginRoutes)
-app.use('/auth', socialRoutes)

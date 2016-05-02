@@ -8,12 +8,15 @@ const localSignUp = new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function (req, email, password, done) {
+  console.log(req.body)
   User.findOne({'email': email}, function (err, user) {
     if (err) return done(err)
     if (user) {
       return done(null, false, {message: 'This email is already used!'})
     } else {
       var newUser = new User()
+      newUser.fb.firstName = req.body.firstName
+      newUser.fb.lastName = req.body.lastName
       newUser.email = email
       newUser.password = User.encrypt(password)
       newUser.save(function (err, user) {
