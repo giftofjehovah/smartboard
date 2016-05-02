@@ -199,6 +199,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouter = require('react-router');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -220,9 +222,103 @@ var UserSignUp = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'h1',
-        null,
-        'Hello World'
+        'div',
+        { className: 'container' },
+        _react2.default.createElement(
+          'div',
+          { className: 'columns' },
+          _react2.default.createElement('div', { className: 'column col-4' }),
+          _react2.default.createElement(
+            'div',
+            { className: 'column col-4' },
+            _react2.default.createElement(
+              'div',
+              { className: 'card' },
+              _react2.default.createElement(
+                'div',
+                { className: 'card-header text-center' },
+                _react2.default.createElement(
+                  'h4',
+                  { className: 'card-title' },
+                  'Register'
+                ),
+                _react2.default.createElement(
+                  'h6',
+                  { className: 'card-meta' },
+                  'Please fill up your information'
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'card-body' },
+                _react2.default.createElement(
+                  'form',
+                  null,
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'input-group' },
+                      _react2.default.createElement('input', { className: 'form-input', type: 'text', id: 'firstname', placeholder: 'First Name' })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'input-group' },
+                      _react2.default.createElement('input', { className: 'form-input', type: 'text', id: 'lastname', placeholder: 'Last Name' })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'input-group' },
+                      _react2.default.createElement('input', { className: 'form-input', type: 'text', id: 'email', placeholder: 'Email' })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'input-group' },
+                      _react2.default.createElement('input', { className: 'form-input', type: 'password', id: 'password', placeholder: 'Password' })
+                    )
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2.default.createElement(
+                      'button',
+                      { className: 'btn btn-block btn-lg' },
+                      'Create Free Account'
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'card-footer' },
+                _react2.default.createElement(
+                  'h6',
+                  { className: 'text-center' },
+                  'New to SmartBoard? ',
+                  _react2.default.createElement(
+                    _reactRouter.Link,
+                    { to: '/' },
+                    'Login '
+                  )
+                )
+              )
+            )
+          ),
+          _react2.default.createElement('div', { className: 'column col-4' })
+        )
       );
     }
   }]);
@@ -232,7 +328,7 @@ var UserSignUp = function (_React$Component) {
 
 exports.default = UserSignUp;
 
-},{"react":229}],4:[function(require,module,exports){
+},{"react":229,"react-router":84}],4:[function(require,module,exports){
 var pSlice = Array.prototype.slice;
 var objectKeys = require('./lib/keys.js');
 var isArguments = require('./lib/is_arguments.js');
@@ -25044,4 +25140,4 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = warning;
 
 }).call(this,require('_process'))
-},{"_process":52}]},{},[1,2]);
+},{"_process":52}]},{},[1,2,3]);
