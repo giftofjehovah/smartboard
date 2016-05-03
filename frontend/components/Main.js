@@ -7,11 +7,19 @@ import UserSignUp from './UserSignUp'
 import Dashboard from './Dashboard'
 import NoRoute from './NoRoute'
 
+function authCheck (nextState, replace) {
+  if (!window.localStorage.getItem('token')) {
+    replace({
+      pathname: '/login'
+    })
+  }
+}
+
 var routes = (
   <Router history={browserHistory}>
     <Route path='/login' component={UserLogin} />
     <Route path='/signup' component={UserSignUp} />
-    <Route path='/dashboard' component={Dashboard} />
+    <Route path='/dashboard' component={Dashboard} onEnter={authCheck}/>
     <Route path='*' component={NoRoute} />
   </Router>
 )
