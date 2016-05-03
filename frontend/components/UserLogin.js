@@ -1,8 +1,16 @@
 import React from 'react'
 import startOauth from 'spa-oauth'
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
+import User from '../models/User'
 
 class UserLogin extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      flashMsg: ''
+    }
+  }
+
   fbLogin (event) {
     event.preventDefault()
     startOauth('facebook', 'http://localhost:3000/auth/facebook', 'facebook', function (params) {
@@ -12,7 +20,20 @@ class UserLogin extends React.Component {
 
   localLogin (event) {
     event.preventDefault()
-    console.log('login')
+    var _this = this
+    var ref = this.refs
+    var user = new User(null, null, ref.email.value, ref.password.value)
+    user.login(function (res, body) {
+      var data = JSON.parse(body)
+      if (data.token) {
+        window.localStorage.setItem('token', data.token)
+        browserHistory.push('/dashboard')
+      } else {
+        _this.setState({
+          flashMsg: data.message
+        })
+      }
+    })
   }
 
   render () {
@@ -25,19 +46,20 @@ class UserLogin extends React.Component {
               <div className='card-header text-center'>
                 <h4 className='card-title'>Login</h4>
                 <h6 className='card-meta'>Please fill up your information</h6>
+                <span>{this.state.flashMsg}</span>
               </div>
               <div className='card-body'>
-                <form onSubmit={this.localLogin}>
+                <form onSubmit={this.localLogin.bind(this)}>
                   <div className='form-group'>
                     <div className='input-group'>
                       <span className='input-group-addon'><i className='fa fa-envelope'></i></span>
-                        <input className='form-input' type='text' id='email' placeholder='Email' />
+                        <input ref='email' className='form-input' type='text' id='email' placeholder='Email' />
                     </div>
                   </div>
                   <div className='form-group'>
                     <div className='input-group'>
                       <span className='input-group-addon'><i className='fa fa-unlock-alt'></i></span>
-                        <input className='form-input' type='password' id='password' placeholder='Password' />
+                        <input ref='password' className='form-input' type='password' id='password' placeholder='Password' />
                     </div>
                   </div>
                   <div className='form-group'>

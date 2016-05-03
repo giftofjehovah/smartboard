@@ -27,6 +27,23 @@ class User {
       cb(res, body)
     })
   }
+
+  login (cb) {
+    var data = {
+      email: this.email,
+      password: this.password
+    }
+    var loginUrl = url + '/login'
+
+    request({
+      url: loginUrl,
+      method: 'POST',
+      data: data
+    }, function (err, res, body) {
+      if (err) throw err
+      cb(res, body)
+    })
+  }
 }
 
 export default User

@@ -1,14 +1,30 @@
 import React from 'react'
-import {Link} from 'react-router'
+import {Link, browserHistory} from 'react-router'
 import User from '../models/User'
 
 class UserSignUp extends React.Component {
+  constructor () {
+    super()
+    this.state = {
+      flashMsg: ''
+    }
+  }
+
   signUp (event) {
+    var _this = this
     event.preventDefault()
     var ref = this.refs
     var user = new User(ref.firstName.value, ref.lastName.value, ref.email.value, ref.password.value)
     user.signUp(function (res, body) {
-      console.log(body)
+      var data = JSON.parse(body)
+      if (data.token) {
+        window.localStorage.setItem('token', data.token)
+        browserHistory.push('/dashboard')
+      } else {
+        _this.setState({
+          flashMsg: data.message
+        })
+      }
     })
   }
 
@@ -22,6 +38,7 @@ class UserSignUp extends React.Component {
             <div className='card-header text-center'>
               <h4 className='card-title'>Register</h4>
               <h6 className='card-meta'>Please fill up your information</h6>
+              <span>{this.state.flashMsg}</span>
             </div>
             <div className='card-body'>
               <form onSubmit={this.signUp.bind(this)}>

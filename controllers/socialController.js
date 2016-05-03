@@ -10,7 +10,8 @@ function facebookCallback (req, res, done) {
   return passport.authenticate('facebook', function (err, user, info) {
     if (err) return done(err)
     const token = jwt.sign(user, process.env.JWTSECRET)
-    res.status(202).json({token: token})
+    // res.status(202).json({token: token})
+    res.redirect('/auth/facebook/callback?token=' + token)
   })(req, res)
 }
 

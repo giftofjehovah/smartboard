@@ -43,7 +43,7 @@ const localSignIn = new LocalStrategy({
 const facebook = new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://localhost:3000/auth/facebook/callback',
+  callbackURL: process.env.WEBURL + '/auth/facebook/callback',
   enableProof: true,
   profileFields: ['name', 'emails']
 }, function (access_token, refresh_token, profile, done) {
@@ -65,7 +65,7 @@ const facebook = new FacebookStrategy({
 const twitter = new TwitterStrategy({
   consumerKey: process.env.TWITTER_APP_KEY,
   consumerSecret: process.env.TWITTER_APP_CONSUMER_SECRET,
-  callbackURL: 'http://localhost:3000/auth/twitter/callback'
+  callbackURL: process.env.WEBURL + '/auth/twitter/callback'
 }, function (token, token_secret, profile, done) {
   User.findOne({email: 'leok'}, function (err, user) {
     if (err) return done(err)
