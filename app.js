@@ -40,6 +40,7 @@ if (app.get('env') === 'development') {
 // app.set('view engine', 'ejs')
 app.use(express.static('./public'))
 app.use('/auth', socialRoutes)
+app.use('/', loginRoutes)
 app.get('*', function (request, response) {
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
@@ -49,5 +50,3 @@ app.use(bodyParser())
 app.use(session({secret: process.env.SESSIONSECRET}))
 app.use(passport.initialize())
 localPassport(passport)
-
-app.use('/', loginRoutes)

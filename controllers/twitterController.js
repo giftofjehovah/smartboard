@@ -1,4 +1,5 @@
 const Twitter = require('twitter')
+var request = require('request')
 var client
 
 function twitter (req, res, done, token, tokenSecret) {
@@ -26,7 +27,15 @@ function twitterStream (io) {
   })
 }
 
+function getWeather (req, res, done) {
+  request.get('http://api.forecast.io/forecast/d0ac5297efaba8ec4537320cad46383e/1.2787986999999998,103.84134859999999', function (err, resp, body) {
+    console.log(err)
+    res.json(body)
+  })
+}
+
 module.exports = {
   twitter: twitter,
-  twitterStream: twitterStream
+  twitterStream: twitterStream,
+  getWeather: getWeather
 }

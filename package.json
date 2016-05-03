@@ -37,6 +37,7 @@
     "express-jwt": "^3.3.0",
     "express-session": "^1.13.0",
     "forecast.io": "0.0.9",
+    "geolocation": "^0.2.0",
     "history": "^2.1.1",
     "jsonwebtoken": "^6.1.1",
     "moment": "^2.13.0",

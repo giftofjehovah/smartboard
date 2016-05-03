@@ -8,7 +8,6 @@ const localSignUp = new LocalStrategy({
   passwordField: 'password',
   passReqToCallback: true
 }, function (req, email, password, done) {
-  console.log(req.body)
   User.findOne({'email': email}, function (err, user) {
     if (err) return done(err)
     if (user) {
@@ -47,6 +46,7 @@ const facebook = new FacebookStrategy({
   enableProof: true,
   profileFields: ['name', 'emails']
 }, function (access_token, refresh_token, profile, done) {
+  console.log('hi')
   User.findOne({email: profile.emails[0].value}, function (err, user) {
     if (err) return done(err)
     if (user) return done(null, user)

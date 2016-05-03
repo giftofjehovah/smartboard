@@ -1,20 +1,16 @@
 import React from 'react'
-import Skycons from 'skycons'
-// var ReactSkycons = require('react-skycons')
+import WeatherForecast from '../models/Weather'
 
 class Weather extends React.Component {
+  componentDidMount () {
+      var weatherForecast = new WeatherForecast ()
+  }
+
   render () {
     var styles = {
       height: '45vh',
       border: 'solid 1px darkgrey'
     }
-
-    var skycons = new Skycons({
-      color: 'black'
-    })
-    console.log(skycons)
-
-    skycons.prototype.add(document.getElementById('icon'), Skycons.RAIN)
 
     return (
       <div className='card' style={styles}>
@@ -22,7 +18,6 @@ class Weather extends React.Component {
           <h4 className='card-title'>Weather</h4>
         </div>
         <div className='card-body'>
-          <canvas id='icon' />
         </div>
       </div>
     )
