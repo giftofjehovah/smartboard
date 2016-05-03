@@ -13,8 +13,16 @@ class UserLogin extends React.Component {
 
   fbLogin (event) {
     event.preventDefault()
+    var _this = this
     startOauth('facebook', 'http://localhost:3000/auth/facebook', 'facebook', function (params) {
-      console.log(params)
+      if (params.token) {
+        window.localStorage.setItem('token', params.token)
+        browserHistory.push('/dashboard')
+      } else {
+        _this.setState({
+          flashMsg: 'Unable to login'
+        })
+      }
     })
   }
 
@@ -66,7 +74,7 @@ class UserLogin extends React.Component {
                     <button className='btn btn-block btn-lg'>Submit</button>
                   </div>
                   <div className='form-group'>
-                    <button onClick={this.fbLogin} className='btn btn-block btn-primary btn-lg'><i className='fa fa-facebook-square' aria-hidden='true'></i> Login with Facebook</button>
+                    <button onClick={this.fbLogin.bind(this)} className='btn btn-block btn-primary btn-lg'><i className='fa fa-facebook-square' aria-hidden='true'></i> Login with Facebook</button>
                   </div>
                 </form>
               </div>

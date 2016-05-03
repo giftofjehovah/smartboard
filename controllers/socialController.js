@@ -11,7 +11,7 @@ function facebookCallback (req, res, done) {
     if (err) return done(err)
     const token = jwt.sign(user, process.env.JWTSECRET)
     // res.status(202).json({token: token})
-    res.redirect('/auth/facebook/callback?token=' + token)
+    res.redirect('/success?token=' + token)
   })(req, res)
 }
 

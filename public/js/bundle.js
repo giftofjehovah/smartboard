@@ -556,8 +556,16 @@ var UserLogin = function (_React$Component) {
     key: 'fbLogin',
     value: function fbLogin(event) {
       event.preventDefault();
+      var _this = this;
       (0, _spaOauth2.default)('facebook', 'http://localhost:3000/auth/facebook', 'facebook', function (params) {
-        console.log(params);
+        if (params.token) {
+          window.localStorage.setItem('token', params.token);
+          _reactRouter.browserHistory.push('/dashboard');
+        } else {
+          _this.setState({
+            flashMsg: 'Unable to login'
+          });
+        }
       });
     }
   }, {
@@ -662,7 +670,7 @@ var UserLogin = function (_React$Component) {
                     { className: 'form-group' },
                     _react2.default.createElement(
                       'button',
-                      { onClick: this.fbLogin, className: 'btn btn-block btn-primary btn-lg' },
+                      { onClick: this.fbLogin.bind(this), className: 'btn btn-block btn-primary btn-lg' },
                       _react2.default.createElement('i', { className: 'fa fa-facebook-square', 'aria-hidden': 'true' }),
                       ' Login with Facebook'
                     )
