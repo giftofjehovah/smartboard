@@ -14,4 +14,10 @@ router.route('/twitter')
 router.route('/twitter/callback')
   .get(socialController.twitterCallback)
 
+router.route('/cronofy')
+  .get(socialController.cronofyLogin)
+
+router.route('/cronofy/callback')
+  .get(socialController.cronofyCallback)
+
 module.exports = router

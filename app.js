@@ -32,8 +32,6 @@ if (app.get('env') === 'development') {
   })
 }
 // twitterController.twitterStream(io)
-app.set('views', './public')
-app.set('view engine', 'ejs')
 app.use(logger('dev'))
 app.use(bodyParser())
 
