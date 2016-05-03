@@ -14,7 +14,7 @@ class UserLogin extends React.Component {
   fbLogin (event) {
     event.preventDefault()
     var _this = this
-    startOauth('facebook', 'http://localhost:3000/auth/facebook', 'facebook', function (params) {
+    startOauth('facebook', 'https://smart-board.herokuapp.com/auth/facebook', 'facebook', function (params) {
       if (params.token) {
         window.localStorage.setItem('token', params.token)
         browserHistory.push('/dashboard')

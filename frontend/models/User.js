@@ -1,5 +1,5 @@
 var request = require('ajax-request')
-var url = 'http://localhost:3000'
+var url = 'https://smart-board.herokuapp.com'
 
 class User {
   constructor (firstName, lastName, email, password) {
