@@ -10,7 +10,7 @@ function twitter (req, res, done, token, tokenSecret) {
     access_token_secret: tokenSecret
   })
 
-  client.get('statuses/user_timeline', {count: 1}, function (err, tweets, response) {
+  client.get('statuses/home_timeline', {count: 10}, function (err, tweets, response) {
     if (err) return done(err)
     res.json(tweets)
   })
@@ -18,10 +18,10 @@ function twitter (req, res, done, token, tokenSecret) {
 
 function twitterStream (io) {
   io.on('connect', function (socket) {
-    client.stream('statuses/filter', {track: 'STcom'}, function (stream) {
+    client.stream('statuses/filter', {track: 'user'}, function (stream) {
       stream.on('data', function (tweet) {
         console.log(tweet.text)
-        socket.emit('tweets', tweet.text)
+        socket.emit('tweets', tweet)
       })
     })
   })

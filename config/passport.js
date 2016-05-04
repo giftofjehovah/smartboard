@@ -1,4 +1,5 @@
-const User = require('../models/user.js')
+const User = require('../models/user')
+const Twitter = require('../models/twitter')
 const LocalStrategy = require('passport-local').Strategy
 const FacebookStrategy = require('passport-facebook').Strategy
 const TwitterStrategy = require('passport-twitter').Strategy
@@ -46,11 +47,11 @@ const facebook = new FacebookStrategy({
   enableProof: true,
   profileFields: ['name', 'emails']
 }, function (access_token, refresh_token, profile, done) {
-  console.log('hi')
   User.findOne({email: profile.emails[0].value}, function (err, user) {
     if (err) return done(err)
     if (user) return done(null, user)
     var newUser = new User()
+    newUser.email = profile.emails[0].value
     newUser.fb.id = profile.id
     newUser.fb.accessToken = access_token
     newUser.fb.firstName = profile.name.givenName
@@ -68,18 +69,18 @@ const twitter = new TwitterStrategy({
   callbackURL: process.env.WEBURL + '/auth/twitter/callback'
 }, function (token, token_secret, profile, done) {
   console.log(profile)
-  User.findOne({email: 'leok'}, function (err, user) {
+  Twitter.findOne({id: profile.id}, function (err, twitter) {
     if (err) return done(err)
-    if (user) return done(null, user, {message: 'User found!'})
-    var newUser = new User()
-    newUser.twitter.id = profile.id
-    newUser.twitter.name = profile.displayName
-    newUser.twitter.username = profile.username
-    newUser.twitter.token = token
-    newUser.twitter.tokenSecret = token_secret
-    newUser.save(function (err, user) {
+    if (twitter) return done(null, twitter, {message: 'User found!'})
+    var newTwitter = new Twitter()
+    newTwitter.id = profile.id
+    newTwitter.name = profile.displayName
+    newTwitter.username = profile.username
+    newTwitter.token = token
+    newTwitter.tokenSecret = token_secret
+    newTwitter.save(function (err, twitter) {
       if (err) return done(err)
-      return done(null, user, {message: 'twitter profile saved'})
+      return done(null, twitter, {message: 'twitter profile saved'})
     })
   })
 })

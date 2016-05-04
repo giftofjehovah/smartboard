@@ -1,6 +1,5 @@
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
-const twitterController = require('./twitterController')
 
 function facebookLogin (req, res) {
   return passport.authenticate('facebook', {scope: 'email'})(req, res)
@@ -10,8 +9,7 @@ function facebookCallback (req, res, done) {
   return passport.authenticate('facebook', function (err, user, info) {
     if (err) return done(err)
     const token = jwt.sign(user, process.env.JWTSECRET)
-    // res.status(202).json({token: token})
-    res.redirect('/success?token=' + token + '&twitter=' + user.twitter.id)
+    res.redirect('/success?token=' + token + '&twitter=' + user.twitter[0].id)
   })(req, res)
 }
 
@@ -20,10 +18,9 @@ function twitterLogin (req, res, done) {
 }
 
 function twitterCallback (req, res, done) {
-  return passport.authenticate('twitter', function (err, user, info) {
+  return passport.authenticate('twitter', function (err, twitter, info) {
     if (err) return done(err)
-    if (user) res.redirect('/success?id=' + user.twitter.id)
-    // twitterController.twitter(req, res, done, user.twitter.token, user.twitter.tokenSecret)
+    if (twitter) res.redirect('/success?id=' + twitter.id)
   })(req, res)
 }
 
