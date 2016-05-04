@@ -541,6 +541,10 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _spaOauth = require('spa-oauth');
+
+var _spaOauth2 = _interopRequireDefault(_spaOauth);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -559,6 +563,15 @@ var Tweets = function (_React$Component) {
   }
 
   _createClass(Tweets, [{
+    key: 'twitterLogin',
+    value: function twitterLogin() {
+      (0, _spaOauth2.default)('twitter', 'http://localhost:3000/auth/twitter', 'twitter', function (params) {
+        if (params.id !== 'undefined') {
+          window.localStorage.setItem('twitter', params.id);
+        }
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
       var styles = {
@@ -567,11 +580,16 @@ var Tweets = function (_React$Component) {
       };
 
       var buttonStyles = {
-        'top': '200px'
+        top: '200px'
       };
 
       var cardBodyStyles = {
-        height: '100%'
+        height: '94.5%',
+        overflow: 'scroll'
+      };
+
+      var tweetStyle = {
+        marginTop: '5px'
       };
 
       return _react2.default.createElement(
@@ -591,9 +609,184 @@ var Tweets = function (_React$Component) {
           { className: 'card-body', style: cardBodyStyles },
           _react2.default.createElement(
             'button',
-            { className: 'btn btn-primary btn-lg centered', style: buttonStyles },
+            { onClick: this.twitterLogin.bind(this), className: 'btn btn-primary btn-lg centered', style: buttonStyles },
             _react2.default.createElement('i', { className: 'fa fa-twitter-square' }),
             ' Login with Twitter'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'card', style: tweetStyle },
+            _react2.default.createElement(
+              'div',
+              { className: 'columns' },
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-2' },
+                _react2.default.createElement(
+                  'figure',
+                  { className: 'avatar avatar-s' },
+                  _react2.default.createElement('img', { src: 'img/avatar-1.png', className: 'avatar-icon' })
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-10' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-header' },
+                  _react2.default.createElement(
+                    'h3',
+                    { className: 'card-title' },
+                    'Microsoft'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-body' },
+                  'To make a contribution to the world by making tools for the mind that advance humankind.'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'card', style: tweetStyle },
+            _react2.default.createElement(
+              'div',
+              { className: 'columns' },
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-2' },
+                _react2.default.createElement(
+                  'figure',
+                  { className: 'avatar avatar-s' },
+                  _react2.default.createElement('img', { src: 'img/avatar-1.png', className: 'avatar-icon' })
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-10' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-header' },
+                  _react2.default.createElement(
+                    'h3',
+                    { className: 'card-title' },
+                    'Microsoft'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-body' },
+                  'To make a contribution to the world by making tools for the mind that advance humankind.'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'card', style: tweetStyle },
+            _react2.default.createElement(
+              'div',
+              { className: 'columns' },
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-2' },
+                _react2.default.createElement(
+                  'figure',
+                  { className: 'avatar avatar-s' },
+                  _react2.default.createElement('img', { src: 'img/avatar-1.png', className: 'avatar-icon' })
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-10' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-header' },
+                  _react2.default.createElement(
+                    'h3',
+                    { className: 'card-title' },
+                    'Microsoft'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-body' },
+                  'To make a contribution to the world by making tools for the mind that advance humankind.'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'card', style: tweetStyle },
+            _react2.default.createElement(
+              'div',
+              { className: 'columns' },
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-2' },
+                _react2.default.createElement(
+                  'figure',
+                  { className: 'avatar avatar-s' },
+                  _react2.default.createElement('img', { src: 'img/avatar-1.png', className: 'avatar-icon' })
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-10' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-header' },
+                  _react2.default.createElement(
+                    'h3',
+                    { className: 'card-title' },
+                    'Microsoft'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-body' },
+                  'To make a contribution to the world by making tools for the mind that advance humankind.'
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'card', style: tweetStyle },
+            _react2.default.createElement(
+              'div',
+              { className: 'columns' },
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-2' },
+                _react2.default.createElement(
+                  'figure',
+                  { className: 'avatar avatar-s' },
+                  _react2.default.createElement('img', { src: 'img/avatar-1.png', className: 'avatar-icon' })
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-10' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-header' },
+                  _react2.default.createElement(
+                    'h3',
+                    { className: 'card-title' },
+                    'Microsoft'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'card-body' },
+                  'To make a contribution to the world by making tools for the mind that advance humankind.'
+                )
+              )
+            )
           )
         )
       );
@@ -605,7 +798,7 @@ var Tweets = function (_React$Component) {
 
 exports.default = Tweets;
 
-},{"react":458}],9:[function(require,module,exports){
+},{"react":458,"spa-oauth":490}],9:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -657,7 +850,9 @@ var UserLogin = function (_React$Component) {
       var _this = this;
       (0, _spaOauth2.default)('facebook', 'http://localhost:3000/auth/facebook', 'facebook', function (params) {
         if (params.token) {
+          console.log(params);
           window.localStorage.setItem('token', params.token);
+          if (params.twitter !== 'undefined') window.localStorage.setItem('twitter', params.twitter);
           _reactRouter.browserHistory.push('/dashboard');
         } else {
           _this.setState({
@@ -677,6 +872,7 @@ var UserLogin = function (_React$Component) {
         var data = JSON.parse(body);
         if (data.token) {
           window.localStorage.setItem('token', data.token);
+          if (data.twitter !== 'undefined') window.localStorage.setItem('twitter', data.twitter);
           _reactRouter.browserHistory.push('/dashboard');
         } else {
           _this.setState({
@@ -854,6 +1050,7 @@ var UserSignUp = function (_React$Component) {
         var data = JSON.parse(body);
         if (data.token) {
           window.localStorage.setItem('token', data.token);
+          if (data.twitter !== 'undefined') window.localStorage.setItem('twitter', data.twitter);
           _reactRouter.browserHistory.push('/dashboard');
         } else {
           _this.setState({

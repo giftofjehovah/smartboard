@@ -67,15 +67,17 @@ const twitter = new TwitterStrategy({
   consumerSecret: process.env.TWITTER_APP_CONSUMER_SECRET,
   callbackURL: process.env.WEBURL + '/auth/twitter/callback'
 }, function (token, token_secret, profile, done) {
+  console.log(profile)
   User.findOne({email: 'leok'}, function (err, user) {
     if (err) return done(err)
-    if (!user) return done(null, false, {message: 'Cant find your profile, please try to login again'})
-    user.twitter.id = profile.id
-    user.twitter.name = profile.displayName
-    user.twitter.username = profile.username
-    user.twitter.token = token
-    user.twitter.tokenSecret = token_secret
-    user.save(function (err, user) {
+    if (user) return done(null, user, {message: 'User found!'})
+    var newUser = new User()
+    newUser.twitter.id = profile.id
+    newUser.twitter.name = profile.displayName
+    newUser.twitter.username = profile.username
+    newUser.twitter.token = token
+    newUser.twitter.tokenSecret = token_secret
+    newUser.save(function (err, user) {
       if (err) return done(err)
       return done(null, user, {message: 'twitter profile saved'})
     })

@@ -7,7 +7,7 @@ function login (req, res, done) {
     if (err) return done(err)
     if (!user) return res.status(200).json(info)
     const token = jwt.sign(user, process.env.JWTSECRET)
-    res.status(202).json({token: token})
+    res.status(202).json({token: token, user: user.twitter.id})
   })(req, res)
 }
 
@@ -16,7 +16,7 @@ function signup (req, res, done) {
     if (err) return done(err)
     if (!user) return res.status(200).json(info)
     const token = jwt.sign(user, process.env.JWTSECRET)
-    return res.status(201).json({token: token})
+    return res.status(201).json({token: token, user: user.twitter.id})
   })(req, res)
 }
 

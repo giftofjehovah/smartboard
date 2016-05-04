@@ -16,7 +16,9 @@ class UserLogin extends React.Component {
     var _this = this
     startOauth('facebook', 'http://localhost:3000/auth/facebook', 'facebook', function (params) {
       if (params.token) {
+        console.log(params)
         window.localStorage.setItem('token', params.token)
+        if (params.twitter !== 'undefined') window.localStorage.setItem('twitter', params.twitter)
         browserHistory.push('/dashboard')
       } else {
         _this.setState({
@@ -35,6 +37,7 @@ class UserLogin extends React.Component {
       var data = JSON.parse(body)
       if (data.token) {
         window.localStorage.setItem('token', data.token)
+        if (data.twitter !== 'undefined') window.localStorage.setItem('twitter', data.twitter)
         browserHistory.push('/dashboard')
       } else {
         _this.setState({

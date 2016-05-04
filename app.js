@@ -38,6 +38,9 @@ if (app.get('env') === 'development') {
 // })
 // app.set('views', './public')
 // app.set('view engine', 'ejs')
+app.use(session({secret: process.env.SESSIONSECRET}))
+app.use(passport.initialize())
+localPassport(passport)
 app.use(express.static('./public'))
 app.use('/auth', socialRoutes)
 app.use('/', loginRoutes)
@@ -46,7 +49,3 @@ app.get('*', function (request, response) {
 })
 app.use(logger('dev'))
 app.use(bodyParser())
-
-app.use(session({secret: process.env.SESSIONSECRET}))
-app.use(passport.initialize())
-localPassport(passport)
