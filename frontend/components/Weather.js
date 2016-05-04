@@ -3,7 +3,10 @@ import WeatherForecast from '../models/Weather'
 
 class Weather extends React.Component {
   componentDidMount () {
-      var weatherForecast = new WeatherForecast ()
+    var weatherForecast = new WeatherForecast()
+    weatherForecast.getWeather(function (data) {
+      console.log(data)
+    })
   }
 
   render () {

@@ -13,7 +13,7 @@ class Twitter {
   }
 
   getTweets (cb) {
-    request.post(h.setUrl() + '/auth/dashboard', function (err, res, body) {
+    request.post(h.setUrl() + '/dashboard/twitter', function (err, res, body) {
       if (err) throw err
       cb(JSON.parse(body))
     }).form({twitterId: window.localStorage.getItem('twitter')}).auth(null, null, true, window.localStorage.getItem('token'))

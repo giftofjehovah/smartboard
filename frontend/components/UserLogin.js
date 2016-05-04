@@ -17,7 +17,6 @@ class UserLogin extends React.Component {
     var _this = this
     startOauth('facebook', h.setUrl() + '/auth/facebook', 'facebook', function (params) {
       if (params.token) {
-        console.log(params)
         window.localStorage.setItem('token', params.token)
         if (params.twitter !== 'undefined') window.localStorage.setItem('twitter', params.twitter)
         browserHistory.push('/dashboard')

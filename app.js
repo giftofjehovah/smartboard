@@ -11,6 +11,7 @@ const twitterController = require('./controllers/twitterController')
 const localPassport = require('./config/passport')
 const loginRoutes = require('./config/routes/loginRoutes')
 const socialRoutes = require('./config/routes/socialRoutes')
+const dashboardRoutes = require('./config/routes/dashboardRoutes')
 
 const port = process.env.PORT || 3000
 const mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/smartboard'
@@ -34,7 +35,7 @@ if (app.get('env') === 'development') {
 
 app.use(logger('dev'))
 app.use(bodyParser())
-app.use('/auth/dashboard', expressJWT({
+app.use('/dashboard', expressJWT({
   secret: process.env.JWTSECRET
 }))
 
@@ -43,10 +44,11 @@ app.use(passport.initialize())
 localPassport(passport)
 app.use(express.static('./public'))
 app.use('/auth', socialRoutes)
+app.use('/dashboard', dashboardRoutes)
 app.use('/', loginRoutes)
 app.get('*', function (request, response) {
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
-
-// twitterController.twitterStream(io)
-twitterController.twitterStream(io)
+io.on('connect', (socket) => {
+  twitterController.twitterStream(socket)
+})
