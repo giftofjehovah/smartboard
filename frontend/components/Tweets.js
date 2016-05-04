@@ -72,10 +72,8 @@ class Tweets extends React.Component {
     return (
       <div key={tweet.id}className='card' style={tweetStyle}>
         <div className='columns'>
-          <div className='column col-2'>
-            <figure className='avatar avatar-xl'>
+          <div className='column col-2 avatar avatar-xl'>
               <img src={tweet.user.profile_image_url} className='avatar-icon' />
-            </figure>
           </div>
           <div className='column col-10'>
             <div className='card-header'>

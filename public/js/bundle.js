@@ -648,12 +648,8 @@ var Tweets = function (_React$Component) {
           { className: 'columns' },
           _react2.default.createElement(
             'div',
-            { className: 'column col-2' },
-            _react2.default.createElement(
-              'figure',
-              { className: 'avatar avatar-xl' },
-              _react2.default.createElement('img', { src: tweet.user.profile_image_url, className: 'avatar-icon' })
-            )
+            { className: 'column col-2 avatar avatar-xl' },
+            _react2.default.createElement('img', { src: tweet.user.profile_image_url, className: 'avatar-icon' })
           ),
           _react2.default.createElement(
             'div',
