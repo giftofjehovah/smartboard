@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const Twitter = require('../models/twitter')
 const twitterController = require('./twitterController')
+const io = require('../app')
 
 function saveTwitterInfo (req, res, done) {
   console.log(req.user.isNew.email)
@@ -13,6 +14,7 @@ function saveTwitterInfo (req, res, done) {
       user.save(function (err, user) {
         if (err) return done(err)
         twitterController.twitter(req, res, done, user.twitter[0].token, user.twitter[0].tokenSecret)
+        io
       })
     })
   })

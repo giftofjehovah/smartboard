@@ -18,10 +18,11 @@ function twitter (req, res, done, token, tokenSecret) {
 
 function twitterStream (io) {
   io.on('connect', function (socket) {
-    client.stream('statuses/filter', {track: 'user'}, function (stream) {
-      stream.on('data', function (tweet) {
-        console.log(tweet.text)
-        socket.emit('tweets', tweet)
+    socket.on('start', function () {
+      client.stream('user', function (stream) {
+        stream.on('data', function (tweet) {
+          socket.emit('tweets', tweet)
+        })
       })
     })
   })

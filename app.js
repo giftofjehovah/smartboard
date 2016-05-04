@@ -47,4 +47,6 @@ app.use('/', loginRoutes)
 app.get('*', function (request, response) {
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
+
+// twitterController.twitterStream(io)
 twitterController.twitterStream(io)
