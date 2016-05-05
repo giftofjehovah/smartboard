@@ -50,7 +50,7 @@ function fitbitLogin (req, res, done) {
 function fitbitCallback (req, res, done) {
   return passport.authenticate('fitbit', function (err, fitbit, info) {
     if (err) return done(err)
-    if (fitbit) res.redirect('/success?id=' + fitbit.id)
+    if (fitbit) res.json(fitbit)
   })(req, res)
 }
 

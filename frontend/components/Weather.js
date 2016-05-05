@@ -1,6 +1,5 @@
 import React from 'react'
 import WeatherForecast from '../models/Weather'
-import ClearDay from './weather/ClearDay'
 
 class Weather extends React.Component {
   constructor () {
@@ -44,7 +43,6 @@ class Weather extends React.Component {
           <h6><span className='label label-primary'>{this.state.icon}</span></h6>
           <h3> {this.state.temperature}</h3>
           <h6> {this.state.summary} </h6>
-          <ClearDay />
         </div>
         <div className='card-body'>
           <div className='card' style={columnStyle}>
