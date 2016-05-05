@@ -44,7 +44,12 @@ var Calendar = function (_React$Component) {
           _react2.default.createElement(
             'h4',
             { className: 'card-title' },
-            'Calendar'
+            _react2.default.createElement(
+              'small',
+              { className: 'card-meta' },
+              _react2.default.createElement('i', { className: 'fa fa-calendar-check-o fa-2x' }),
+              ' Calendar'
+            )
           )
         )
       );
@@ -283,7 +288,12 @@ var News = function (_React$Component) {
           _react2.default.createElement(
             'h4',
             { className: 'card-title' },
-            'News'
+            _react2.default.createElement(
+              'small',
+              { className: 'card-meta' },
+              _react2.default.createElement('i', { className: 'fa fa-newspaper-o fa-2x' }),
+              ' News'
+            )
           )
         )
       );
@@ -501,6 +511,7 @@ var Time = function (_React$Component) {
         height: '45vh',
         border: 'solid 1px darkgrey'
       };
+
       return _react2.default.createElement(
         'div',
         { className: 'card', style: styles },
@@ -510,8 +521,22 @@ var Time = function (_React$Component) {
           _react2.default.createElement(
             'h4',
             { className: 'card-title' },
-            'Time'
+            _react2.default.createElement(
+              'small',
+              { className: 'card-meta' },
+              _react2.default.createElement('i', { className: 'fa fa-clock-o fa-2x' }),
+              ' Time'
+            )
           ),
+          _react2.default.createElement(
+            'h3',
+            null,
+            ' Good Morning Leok '
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'card-body text-center' },
           _react2.default.createElement(
             'h5',
             null,
@@ -668,7 +693,7 @@ var Tweets = function (_React$Component) {
             ),
             _react2.default.createElement(
               'div',
-              { className: 'card-body' },
+              { className: 'card-body text-overflow' },
               tweet.text
             )
           )
@@ -681,6 +706,7 @@ var Tweets = function (_React$Component) {
       var styles = {
         height: '93vh',
         border: 'solid 1px darkgrey'
+        // backgroundColor: '#fdfcfc'
       };
 
       var cardBodyStyles = {
@@ -697,7 +723,12 @@ var Tweets = function (_React$Component) {
           _react2.default.createElement(
             'h4',
             { className: 'card-title' },
-            'Tweets'
+            _react2.default.createElement(
+              'small',
+              { className: 'card-meta' },
+              _react2.default.createElement('i', { className: 'fa fa-twitter fa-2x' }),
+              'Tweets'
+            )
           )
         ),
         _react2.default.createElement(
@@ -1125,15 +1156,30 @@ var Weather = function (_React$Component) {
   function Weather() {
     _classCallCheck(this, Weather);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Weather).apply(this, arguments));
+    var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(Weather).call(this));
+
+    _this2.state = {
+      icons: '',
+      summary: '',
+      timezone: '',
+      nextDay: ''
+    };
+    return _this2;
   }
 
   _createClass(Weather, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
+      var _this = this;
       var weatherForecast = new _Weather2.default();
       weatherForecast.getWeather(function (data) {
         console.log(data);
+        _this.setState({
+          icon: data.daily.data[0].icon,
+          temperature: data.currently.temperature,
+          summary: data.daily.data[0].summary,
+          nextDay: data.daily.data[1].summary
+        });
       });
     }
   }, {
@@ -1142,6 +1188,11 @@ var Weather = function (_React$Component) {
       var styles = {
         height: '45vh',
         border: 'solid 1px darkgrey'
+      };
+
+      var columnStyle = {
+        'padding-left': '15px',
+        'padding-right': '15px'
       };
 
       return _react2.default.createElement(
@@ -1153,10 +1204,67 @@ var Weather = function (_React$Component) {
           _react2.default.createElement(
             'h4',
             { className: 'card-title' },
-            'Weather'
+            _react2.default.createElement(
+              'small',
+              { className: 'card-meta' },
+              _react2.default.createElement('i', { className: 'fa fa-sun-o fa-1x' }),
+              ' Weather'
+            )
+          ),
+          _react2.default.createElement(
+            'h6',
+            null,
+            _react2.default.createElement(
+              'span',
+              { className: 'label label-primary' },
+              this.state.icon
+            )
+          ),
+          _react2.default.createElement(
+            'h2',
+            null,
+            ' ',
+            this.state.temperature,
+            ' '
+          ),
+          _react2.default.createElement(
+            'h6',
+            null,
+            ' ',
+            this.state.summary,
+            ' '
           )
         ),
-        _react2.default.createElement('div', { className: 'card-body' })
+        _react2.default.createElement(
+          'div',
+          { className: 'card-body' },
+          _react2.default.createElement(
+            'div',
+            { className: 'card', style: columnStyle },
+            _react2.default.createElement(
+              'div',
+              { className: 'columns' },
+              _react2.default.createElement(
+                'div',
+                { className: 'column col-12' },
+                _react2.default.createElement(
+                  'h6',
+                  null,
+                  _react2.default.createElement(
+                    'small',
+                    { className: 'card-meta' },
+                    'Tomorrow'
+                  )
+                ),
+                _react2.default.createElement(
+                  'h6',
+                  null,
+                  this.state.nextDay
+                )
+              )
+            )
+          )
+        )
       );
     }
   }]);

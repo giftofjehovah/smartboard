@@ -9,7 +9,7 @@ class Calendar extends React.Component {
     return (
       <div className='card' style={styles}>
         <div className='card-header text-center'>
-          <h4 className='card-title'>Calendar</h4>
+          <h4 className='card-title'><small className='card-meta'><i className='fa fa-calendar-check-o fa-2x'></i> Calendar</small></h4>
         </div>
       </div>
     )

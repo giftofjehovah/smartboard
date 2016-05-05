@@ -9,7 +9,7 @@ class News extends React.Component {
     return (
       <div className='card' style={styles}>
         <div className='card-header text-center'>
-          <h4 className='card-title'>News</h4>
+          <h4 className='card-title'><small className='card-meta'><i className='fa fa-newspaper-o fa-2x'></i> News</small></h4>
         </div>
       </div>
     )

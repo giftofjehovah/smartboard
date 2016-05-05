@@ -78,7 +78,7 @@ class Tweets extends React.Component {
             <div className='card-header'>
               <h3 className='card-title'>{tweet.user.name}</h3>
             </div>
-            <div className='card-body'>
+            <div className='card-body text-overflow'>
               {tweet.text}
             </div>
           </div>
@@ -91,6 +91,7 @@ class Tweets extends React.Component {
     var styles = {
       height: '93vh',
       border: 'solid 1px darkgrey'
+      // backgroundColor: '#fdfcfc'
     }
 
     var cardBodyStyles = {
@@ -101,7 +102,7 @@ class Tweets extends React.Component {
     return (
       <div className='card' style={styles}>
         <div className='card-header text-center'>
-          <h4 className='card-title'>Tweets</h4>
+          <h4 className='card-title'><small className='card-meta'><i className='fa fa-twitter fa-2x'></i>Tweets</small></h4>
         </div>
         <div className='card-body' style={cardBodyStyles}>
           {this.state.button}
