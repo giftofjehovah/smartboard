@@ -1,5 +1,4 @@
 const Twitter = require('twitter')
-var request = require('request')
 var client
 
 function twitter (req, res, done, token, tokenSecret) {
@@ -10,32 +9,23 @@ function twitter (req, res, done, token, tokenSecret) {
     access_token_secret: tokenSecret
   })
 
-  client.get('statuses/user_timeline', {count: 1}, function (err, tweets, response) {
+  client.get('statuses/home_timeline', {count: 10}, function (err, tweets, response) {
     if (err) return done(err)
     res.json(tweets)
   })
 }
 
-function twitterStream (io) {
-  io.on('connect', function (socket) {
-    client.stream('statuses/filter', {track: 'STcom'}, function (stream) {
+function twitterStream (socket) {
+  socket.on('start', function () {
+    client.stream('user', function (stream) {
       stream.on('data', function (tweet) {
-        console.log(tweet.text)
-        socket.emit('tweets', tweet.text)
+        socket.emit('tweets', tweet)
       })
     })
   })
 }
 
-function getWeather (req, res, done) {
-  request.get('http://api.forecast.io/forecast/d0ac5297efaba8ec4537320cad46383e/1.2787986999999998,103.84134859999999', function (err, resp, body) {
-    console.log(err)
-    res.json(body)
-  })
-}
-
 module.exports = {
   twitter: twitter,
-  twitterStream: twitterStream,
-  getWeather: getWeather
+  twitterStream: twitterStream
 }

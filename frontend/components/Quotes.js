@@ -29,8 +29,8 @@ class Quotes extends React.Component {
 
   render () {
     var styles = {
-      // height: '45vh',
-      border: 'solid 1px darkgrey'
+      height: '45vh',
+      border: 'solid 2px darkgrey'
     }
     return (
       <div className='card' style={styles}>
@@ -39,7 +39,7 @@ class Quotes extends React.Component {
         </div>
         <div className='card-header text-center'>
           <h4 className='card-title'>{this.state.author}</h4>
-          <h6 className='card-meta'>{this.state.category}</h6>
+          <h6 className='card-meta'><span className='label label-primary'>{this.state.category}</span></h6>
         </div>
         <div className='card-body'>
           {this.state.quote}

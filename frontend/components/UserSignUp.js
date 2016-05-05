@@ -19,6 +19,7 @@ class UserSignUp extends React.Component {
       var data = JSON.parse(body)
       if (data.token) {
         window.localStorage.setItem('token', data.token)
+        if (data.twitter !== 'undefined') window.localStorage.setItem('twitter', data.twitter)
         browserHistory.push('/dashboard')
       } else {
         _this.setState({

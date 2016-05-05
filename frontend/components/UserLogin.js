@@ -2,6 +2,8 @@ import React from 'react'
 import startOauth from 'spa-oauth'
 import {Link, browserHistory} from 'react-router'
 import User from '../models/User'
+import h from '../models/helpers'
+import Clef from './Clef'
 
 class UserLogin extends React.Component {
   constructor () {
@@ -14,9 +16,12 @@ class UserLogin extends React.Component {
   fbLogin (event) {
     event.preventDefault()
     var _this = this
-    startOauth('facebook', 'https://smart-board.herokuapp.com/auth/facebook', 'facebook', function (params) {
+    startOauth('facebook', h.setUrl() + '/auth/facebook', 'facebook', function (params) {
       if (params.token) {
         window.localStorage.setItem('token', params.token)
+        window.localStorage.setItem('name', params.name)
+        if (params.twitter !== 'undefined') window.localStorage.setItem('twitter', params.twitter)
+        if (params.google !== 'undefined') window.localStorage.setItem('google', params.google)
         browserHistory.push('/dashboard')
       } else {
         _this.setState({
@@ -35,6 +40,7 @@ class UserLogin extends React.Component {
       var data = JSON.parse(body)
       if (data.token) {
         window.localStorage.setItem('token', data.token)
+        if (data.twitter !== 'undefined') window.localStorage.setItem('twitter', data.twitter)
         browserHistory.push('/dashboard')
       } else {
         _this.setState({
@@ -76,6 +82,7 @@ class UserLogin extends React.Component {
                   <div className='form-group'>
                     <button onClick={this.fbLogin.bind(this)} className='btn btn-block btn-primary btn-lg'><i className='fa fa-facebook-square' aria-hidden='true'></i> Login with Facebook</button>
                   </div>
+                  <Clef appID='70da986fa2dd4cc83d13e5e62baaca24' redirectURL={h.setUrl() + '/auth/clef/callback'} color='white' state='qwewdsadfsfsdfds' type='login'/>
                 </form>
               </div>
               <div className='card-footer'>

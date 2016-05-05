@@ -1,5 +1,5 @@
 var request = require('ajax-request')
-var url = 'https://smart-board.herokuapp.com'
+import h from './helpers'
 
 class User {
   constructor (firstName, lastName, email, password) {
@@ -16,7 +16,7 @@ class User {
       email: this.email,
       password: this.password
     }
-    var signUpUrl = url + '/signup'
+    var signUpUrl = h.setUrl() + '/signup'
 
     request({
       url: signUpUrl,
@@ -33,7 +33,7 @@ class User {
       email: this.email,
       password: this.password
     }
-    var loginUrl = url + '/login'
+    var loginUrl = h.setUrl() + '/login'
 
     request({
       url: loginUrl,

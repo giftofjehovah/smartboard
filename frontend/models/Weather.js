@@ -1,21 +1,17 @@
 import geolocation from 'geolocation'
-import Forecast from 'forecast.io'
+import h from './helpers'
+import request from 'request'
 
 class Weather {
-  constructor () {
+  getWeather (cb) {
     geolocation.getCurrentPosition(function (err, position) {
       if (err) throw err
-      console.log(position.coords.latitude)
-      console.log(position.coords.longitude)
-      var options = {
-        APIKey: 'd0ac5297efaba8ec4537320cad46383e'
-      }
-      var forecast = new Forecast(options)
-
-      forecast.get(position.coords.latitude, position.coords.longitude, function (err, res, data) {
+      request.post(h.setUrl() + '/dashboard/weather', function (err, res, body) {
         if (err) throw err
-        console.log(data)
-      })
+        cb(JSON.parse(body))
+      }).form({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude}).auth(null, null, true, window.localStorage.getItem('token'))
     })
   }
 }
