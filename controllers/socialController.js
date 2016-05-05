@@ -15,7 +15,6 @@ function facebookCallback (req, res, done) {
     if (err) return done(err)
     const token = jwt.sign(user, process.env.JWTSECRET)
     var url = '/success?token=' + token + '&name=' + user.fb.firstName
-    console.log(user.twitter[0])
     if (user.twitter[0] !== null && typeof user.twitter[0] !== 'undefined') url = url + '&twitter=' + user.twitter[0].id
     if (user.google[0] !== null && typeof user.twitter[0] !== 'undefined') url = url + '&google=' + user.google[0].id
     res.redirect(url)
