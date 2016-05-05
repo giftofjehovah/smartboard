@@ -115,7 +115,7 @@ const fitbit = new FitbitStrategy({
   clientSecret: process.env.FITBIT_SECRET_ID,
   callbackURL: process.env.WEBURL + '/auth/fitbit/callback'
 }, function (accessToken, refresh_token, profile, done) {
-  console.log(profile)
+  console.log(profile.features)
 })
 
 function passport (passport) {
