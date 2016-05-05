@@ -14,7 +14,7 @@ const socialRoutes = require('./config/routes/socialRoutes')
 const dashboardRoutes = require('./config/routes/dashboardRoutes')
 
 const port = process.env.PORT || 3000
-const mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/smartboard'
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/smartboard'
 
 const app = express()
 const server = require('http').createServer(app)
