@@ -14,13 +14,12 @@ class UserLogin extends React.Component {
     }
   }
 
-  componentDidMount () {
+  componentWillMount () {
     const socket = io(window.location.host)
-    socket.on('connected', function () {
+    socket.on('connect', function () {
+      console.log('connected')
       socket.on('clef', function (status) {
-        if (status === 'login') {
-          console.log('login')
-        }
+          console.log(status)
       })
     })
   }

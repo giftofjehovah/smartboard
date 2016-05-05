@@ -20,6 +20,12 @@ router.route('/google')
 router.route('/google/callback')
   .get(socialController.googleCallback)
 
+router.route('/fitbit')
+  .get(socialController.fitbitLogin)
+
+router.route('/fitbit/callback')
+  .get(socialController.fitbitCallback)
+
 router.route('/clef/callback')
   .get(socialController.clefCallback)
 
