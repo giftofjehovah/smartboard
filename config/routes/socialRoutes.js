@@ -14,4 +14,10 @@ router.route('/twitter')
 router.route('/twitter/callback')
   .get(socialController.twitterCallback)
 
+router.route('/google')
+  .get(socialController.googleLogin)
+
+router.route('/google/callback')
+  .get(socialController.googleCallback)
+
 module.exports = router

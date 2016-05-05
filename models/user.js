@@ -12,7 +12,15 @@ const userSchema = mongoose.Schema({
     accessToken: String,
     refreshToken: String
   },
-  twitter: [twitterSchema]
+  twitter: [twitterSchema],
+  google: {
+    id: String,
+    firstName: String,
+    lastName: String,
+    accessToken: String,
+    refreshToken: String,
+    picture: String
+  }
 })
 
 userSchema.statics.encrypt = function (password) {

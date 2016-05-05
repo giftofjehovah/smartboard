@@ -17,7 +17,7 @@ class Tweets extends React.Component {
       top: '200px'
     }
     var twitterButton = (<button onClick={this.firstLogin.bind(this)} className='btn btn-primary btn-lg centered' style={buttonStyles}><i className='fa fa-twitter-square'></i> Login with Twitter</button>)
-    if (window.localStorage.getItem('twitter') || window.localStorage.getItem('twitter') === 'undefined') {
+    if (window.localStorage.getItem('twitter') && window.localStorage.getItem('twitter') !== 'undefined') {
       twitterButton = ''
       this.getTweetsAndStreamTweets()
     }

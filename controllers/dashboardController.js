@@ -2,7 +2,7 @@ const User = require('../models/user')
 const Twitter = require('../models/twitter')
 const twitterController = require('./twitterController')
 const Forecast = require('forecast.io')
-const io = require('../app')
+const gcal = require('google-calendar')
 
 function saveTwitterInfo (req, res, done) {
   User.findOne({email: req.user._doc.email}, function (err, user) {
@@ -13,25 +13,40 @@ function saveTwitterInfo (req, res, done) {
       user.save(function (err, user) {
         if (err) return done(err)
         twitterController.twitter(req, res, done, user.twitter[0].token, user.twitter[0].tokenSecret)
-        io
       })
     })
   })
 }
 
 function getWeather (req, res, done) {
-  var options = {
+  var key = {
     APIKey: process.env.FORECAST_KEY
   }
-  var forecast = new Forecast(options)
+  var options = {
+    units: 'auto'
+  }
+  var forecast = new Forecast(key)
 
-  forecast.get(req.body.latitude, req.body.longitude, function (err, response, data) {
+  forecast.get(req.body.latitude, req.body.longitude, options, function (err, response, data) {
     if (err) throw err
     res.json(data)
   })
 }
 
+function getCalendar (req, res, done) {
+  User.findOne({'google.id': req.body.googleId}, function (err, user) {
+    if (err) return done(err)
+    var calendar = new gcal.GoogleCalendar(user.google.accessToken)
+    console.log(user.google.accessToken)
+    calendar.events.list('primary', function (err, events) {
+      if (err) return done(err)
+      res.json(events)
+    })
+  })
+}
+
 module.exports = {
   saveTwitterInfo: saveTwitterInfo,
-  getWeather: getWeather
+  getWeather: getWeather,
+  getCalendar: getCalendar
 }

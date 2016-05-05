@@ -8,4 +8,7 @@ router.route('/twitter')
 router.route('/weather')
   .post(dashboardController.getWeather)
 
+router.route('/calendar')
+  .post(dashboardController.getCalendar)
+
 module.exports = router
