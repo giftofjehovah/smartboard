@@ -20,6 +20,7 @@ class Calendar extends React.Component {
     var googleButton = (<button onClick={this.firstLogin.bind(this)} className='btn btn-primary btn-lg centered' style={buttonStyles}><i className='fa fa-twitter-square'></i> Login with Google </button>)
     if (window.localStorage.getItem('google') && window.localStorage.getItem('google') !== 'undefined') {
       googleButton = ''
+      this.getCalendar()
     }
     this.setState({
       button: googleButton
@@ -30,26 +31,33 @@ class Calendar extends React.Component {
     var _this = this
     var google = new Google()
     google.login(function () {
-      google.getCalender(function (list) {
-        var reversedArray = list.items.reverse()
-        var lowFatArray = reversedArray.slice(0, 9)
-        var newCalendar = lowFatArray.map(_this.transformCalendar)
-        _this.setState({
-          button: '',
-          events: newCalendar
-        })
+      _this.getCalendar()
+      _this.setState({button: ''})
+    })
+  }
+
+  getCalendar () {
+    var _this = this
+    var google = new Google()
+    google.getCalender(function (list) {
+      var reversedArray = list.items.reverse()
+      var lowFatArray = reversedArray.slice(0, 9)
+      var newCalendar = lowFatArray.map(_this.transformCalendar)
+      _this.setState({
+        button: '',
+        events: newCalendar
       })
     })
   }
 
   transformCalendar (event) {
     return (
-      <div className='card'>
+      <div key={event.id} className='card'>
         <div className='columns'>
           <div className='column col-12'>
-            <h6>dates: {moment(event.end.dateTime).format('Do MMM HH:mm')}</h6>
-            <h6>summary: {event.summary}</h6>
-            <h6>location: {event.location}</h6>
+            <h6>Dates: {moment(event.end.dateTime).format('Do MMM HH:mm')}</h6>
+            <h6>Summary: {event.summary}</h6>
+            <h6>Location: {event.location}</h6>
           </div>
         </div>
       </div>

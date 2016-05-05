@@ -4,7 +4,6 @@ import {Link, browserHistory} from 'react-router'
 import User from '../models/User'
 import h from '../models/helpers'
 import Clef from './Clef'
-import io from 'socket.io-client'
 
 class UserLogin extends React.Component {
   constructor () {
@@ -14,23 +13,15 @@ class UserLogin extends React.Component {
     }
   }
 
-  componentWillMount () {
-    const socket = io(window.location.host)
-    socket.on('connect', function () {
-      console.log('connected')
-      socket.on('clef', function (status) {
-        console.log(status)
-      })
-    })
-  }
-
   fbLogin (event) {
     event.preventDefault()
     var _this = this
     startOauth('facebook', h.setUrl() + '/auth/facebook', 'facebook', function (params) {
       if (params.token) {
         window.localStorage.setItem('token', params.token)
+        window.localStorage.setItem('name', params.name)
         if (params.twitter !== 'undefined') window.localStorage.setItem('twitter', params.twitter)
+        if (params.google !== 'undefined') window.localStorage.setItem('google', params.google)
         browserHistory.push('/dashboard')
       } else {
         _this.setState({

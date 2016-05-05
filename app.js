@@ -52,6 +52,5 @@ app.get('*', function (request, response) {
 })
 
 io.on('connect', (socket) => {
-  console.log('connecting')
   twitterController.twitterStream(socket)
 })

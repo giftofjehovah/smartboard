@@ -14,11 +14,11 @@ function facebookCallback (req, res, done) {
   return passport.authenticate('facebook', function (err, user, info) {
     if (err) return done(err)
     const token = jwt.sign(user, process.env.JWTSECRET)
-    if (user.twitter[0]) {
-      res.redirect('/success?token=' + token + '&twitter=' + user.twitter[0].id)
-    } else {
-      res.redirect('/success?token=' + token)
-    }
+    var url = '/success?token=' + token + '&name=' + user.fb.firstName
+    console.log(user.twitter[0])
+    if (user.twitter[0] !== null && typeof user.twitter[0] !== 'undefined') url = url + '&twitter=' + user.twitter[0].id
+    if (user.google[0] !== null && typeof user.twitter[0] !== 'undefined') url = url + '&google=' + user.google[0].id
+    res.redirect(url)
   })(req, res)
 }
 
