@@ -24,13 +24,17 @@ class Time extends React.Component {
       height: '45vh',
       border: 'solid 1px darkgrey'
     }
+
     return (
       <div className='card' style={styles}>
         <div className='card-header text-center'>
-          <h4 className='card-title'>Time</h4>
-          <h5>{moment().format('dddd, MMMM Do YYYY')}</h5>
-          <h2>{this.state.time}</h2>
+          <h4 className='card-title'><small className='card-meta'><i className='fa fa-clock-o fa-2x'></i> Time</small></h4>
+          <h3> Good Morning Leok </h3>
         </div>
+          <div className='card-body text-center'>
+            <h5>{moment().format('dddd, MMMM Do YYYY')}</h5>
+            <h2>{this.state.time}</h2>
+          </div>
       </div>
     )
   }

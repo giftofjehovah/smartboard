@@ -30,6 +30,7 @@ function getWeather (req, res, done) {
   forecast.get(req.body.latitude, req.body.longitude, options, function (err, response, data) {
     if (err) throw err
     res.json(data)
+    console.log(data)
   })
 }
 
