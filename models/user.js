@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const twitterSchema = require('./twitter').schema
+const googleSchema = require('./google').schema
 
 const userSchema = mongoose.Schema({
   email: String,
@@ -13,14 +14,7 @@ const userSchema = mongoose.Schema({
     refreshToken: String
   },
   twitter: [twitterSchema],
-  google: {
-    id: String,
-    firstName: String,
-    lastName: String,
-    accessToken: String,
-    refreshToken: String,
-    picture: String
-  }
+  google: [googleSchema]
 })
 
 userSchema.statics.encrypt = function (password) {

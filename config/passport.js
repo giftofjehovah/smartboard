@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const Twitter = require('../models/twitter')
+const Google = require('../models/google')
 const LocalStrategy = require('passport-local').Strategy
 const FacebookStrategy = require('passport-facebook').Strategy
 const TwitterStrategy = require('passport-twitter').Strategy
@@ -71,7 +72,7 @@ const twitter = new TwitterStrategy({
 }, function (token, token_secret, profile, done) {
   Twitter.findOne({id: profile.id}, function (err, twitter) {
     if (err) return done(err)
-    if (twitter) return done(null, twitter, {message: 'User found!'})
+    if (twitter) return done(null, twitter, {message: 'Twiiter found!'})
     var newTwitter = new Twitter()
     newTwitter.id = profile.id
     newTwitter.name = profile.displayName
@@ -91,15 +92,16 @@ const google = new GoogleStrategy({
   callbackURL: process.env.WEBURL + '/auth/google/callback',
   scope: ['profile', 'email', 'https://www.googleapis.com/auth/calendar.readonly']
 }, function (accessToken, refresh_token, profile, done) {
-  User.findOne({email: profile.emails[0].value}, function (err, user) {
+  Google.findOne({id: profile.id}, function (err, google) {
     if (err) return done(err)
-    if (user.google.id) return done(null, user, {message: 'User found!'})
-    user.google.id = profile.id
-    user.google.lastName = profile.name.familyName
-    user.google.firstName = profile.name.givenName
-    user.google.picture = profile.photos[0].value
-    user.google.accessToken = accessToken
-    user.save(function (err, user) {
+    if (google) return done(null, google, {message: 'Google found!'})
+    var newGoogle = new Google()
+    newGoogle.id = profile.id
+    newGoogle.lastName = profile.name.familyName
+    newGoogle.firstName = profile.name.givenName
+    newGoogle.picture = profile.photos[0].value
+    newGoogle.accessToken = accessToken
+    newGoogle.save(function (err, user) {
       if (err) return done(err)
       return done(null, user, {message: 'google profile saved'})
     })

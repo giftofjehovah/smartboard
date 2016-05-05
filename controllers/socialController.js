@@ -1,5 +1,9 @@
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const clef = require('clef').initialize({
+  appID: process.env.CLEF_ID,
+  appSecret: process.env.CLEF_SECRET
+})
 
 function facebookLogin (req, res) {
   return passport.authenticate('facebook', {scope: 'email'})(req, res)
@@ -33,10 +37,20 @@ function googleLogin (req, res, done) {
 }
 
 function googleCallback (req, res, done) {
-  return passport.authenticate('google', function (err, user, info) {
+  return passport.authenticate('google', function (err, google, info) {
     if (err) return done(err)
-    if (user) res.redirect('/success?id=' + user.google.id)
+    if (google) res.redirect('/success?id=' + google.id)
   })(req, res)
+}
+
+function clefCallback (req, res, done) {
+  clef.getLoginInformation({code: req.query.code}, function (err, user) {
+    if (err) return done(err)
+    if (req.query.code) {
+      console.log(req.query.code)
+      done()
+    }
+  })
 }
 
 module.exports = {
@@ -45,5 +59,6 @@ module.exports = {
   twitterLogin: twitterLogin,
   twitterCallback: twitterCallback,
   googleLogin: googleLogin,
-  googleCallback: googleCallback
+  googleCallback: googleCallback,
+  clefCallback: clefCallback
 }

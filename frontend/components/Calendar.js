@@ -6,7 +6,7 @@ class Calendar extends React.Component {
   firstLogin () {
     var google = new Google()
     google.login(function () {
-      google.getCalander(function (list) {
+      google.getCalender(function (list) {
         console.log(list)
       })
     })

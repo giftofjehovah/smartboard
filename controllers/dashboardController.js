@@ -1,5 +1,6 @@
 const User = require('../models/user')
 const Twitter = require('../models/twitter')
+const Google = require('../models/google')
 const twitterController = require('./twitterController')
 const Forecast = require('forecast.io')
 const gcal = require('google-calendar')
@@ -30,24 +31,33 @@ function getWeather (req, res, done) {
   forecast.get(req.body.latitude, req.body.longitude, options, function (err, response, data) {
     if (err) throw err
     res.json(data)
-    console.log(data)
   })
 }
 
-function getCalendar (req, res, done) {
-  User.findOne({'google.id': req.body.googleId}, function (err, user) {
+function saveGoogleInfo (req, res, done) {
+  User.findOne({'email': req.user._doc.email}, function (err, user) {
     if (err) return done(err)
-    var calendar = new gcal.GoogleCalendar(user.google.accessToken)
-    console.log(user.google.accessToken)
-    calendar.events.list('primary', function (err, events) {
+    Google.findOne({id: req.body.googleId}, function (err, google) {
       if (err) return done(err)
-      res.json(events)
+      user.google = google
+      user.save(function (err, user) {
+        if (err) return done(err)
+        getCalendar(user, res, done)
+      })
     })
+  })
+}
+
+function getCalendar (user, res, done) {
+  var calendar = new gcal.GoogleCalendar(user.google[0].accessToken)
+  calendar.events.list('primary', function (err, events) {
+    if (err) return done(err)
+    res.json(events)
   })
 }
 
 module.exports = {
   saveTwitterInfo: saveTwitterInfo,
-  getWeather: getWeather,
-  getCalendar: getCalendar
+  saveGoogleInfo: saveGoogleInfo,
+  getWeather: getWeather
 }
