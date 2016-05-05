@@ -20,4 +20,7 @@ router.route('/google')
 router.route('/google/callback')
   .get(socialController.googleCallback)
 
+router.route('/clef/callback')
+  .get(socialController.clefCallback)
+
 module.exports = router

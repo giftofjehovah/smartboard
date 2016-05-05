@@ -12,8 +12,8 @@ class Google {
     })
   }
 
-  getCalander (cb) {
-    request.post(h.setUrl() + '/dashboard/calendar', function (err, res, body) {
+  getCalender (cb) {
+    request.post(h.setUrl() + '/dashboard/google', function (err, res, body) {
       if (err) throw err
       cb(JSON.parse(body))
     }).form({googleId: window.localStorage.getItem('google')}).auth(null, null, true, window.localStorage.getItem('token'))

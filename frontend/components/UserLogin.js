@@ -3,6 +3,8 @@ import startOauth from 'spa-oauth'
 import {Link, browserHistory} from 'react-router'
 import User from '../models/User'
 import h from '../models/helpers'
+import Clef from './Clef'
+import io from 'socket.io-client'
 
 class UserLogin extends React.Component {
   constructor () {
@@ -10,6 +12,17 @@ class UserLogin extends React.Component {
     this.state = {
       flashMsg: ''
     }
+  }
+
+  componentDidMount () {
+    const socket = io(window.location.host)
+    socket.on('connected', function () {
+      socket.on('clef', function (status) {
+        if (status === 'login') {
+          console.log('login')
+        }
+      })
+    })
   }
 
   fbLogin (event) {
@@ -79,6 +92,7 @@ class UserLogin extends React.Component {
                   <div className='form-group'>
                     <button onClick={this.fbLogin.bind(this)} className='btn btn-block btn-primary btn-lg'><i className='fa fa-facebook-square' aria-hidden='true'></i> Login with Facebook</button>
                   </div>
+                  <Clef appID='70da986fa2dd4cc83d13e5e62baaca24' redirectURL={h.setUrl() + '/auth/clef/callback'} color='white' state='qwewdsadfsfsdfds' type='login'/>
                 </form>
               </div>
               <div className='card-footer'>
