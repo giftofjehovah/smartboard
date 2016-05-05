@@ -13,6 +13,9 @@ const userSchema = mongoose.Schema({
     accessToken: String,
     refreshToken: String
   },
+  clef: {
+    id: String
+  },
   twitter: [twitterSchema],
   google: [googleSchema]
 })

@@ -46,19 +46,12 @@ app.use(express.static('./public'))
 app.use('/auth', socialRoutes)
 app.use('/dashboard', dashboardRoutes)
 app.use('/', loginRoutes)
-app.use('/auth/clef/callback', function (req, res, done) {
-  io.on('connected', (socket) => {
-    console.log('connected')
-    if (req.query.code) {
-      socket.emit('clef', 'login')
-      res.end()
-    }
-  })
-})
+
 app.get('*', function (request, response) {
   response.sendFile(path.resolve(__dirname, 'public', 'index.html'))
 })
 
 io.on('connect', (socket) => {
+  console.log('connecting')
   twitterController.twitterStream(socket)
 })

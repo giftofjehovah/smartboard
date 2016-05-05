@@ -1,5 +1,6 @@
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const User = require('../models/user')
 const clef = require('clef').initialize({
   appID: process.env.CLEF_ID,
   appSecret: process.env.CLEF_SECRET
@@ -43,13 +44,36 @@ function googleCallback (req, res, done) {
   })(req, res)
 }
 
-function clefCallback (req, res, done) {
-  clef.getLoginInformation({code: req.query.code}, function (err, user) {
+function fitbitLogin (req, res, done) {
+  return passport.authenticate('fitbit', { scope: ['activity', 'heartrate', 'location', 'profile'] })(req, res, done)
+}
+
+function fitbitCallback (req, res, done) {
+  return passport.authenticate('fitbit', function (err, fitbit, info) {
     if (err) return done(err)
-    if (req.query.code) {
-      console.log(req.query.code)
-      done()
-    }
+    if (fitbit) res.redirect('/success?id=' + fitbit.id)
+  })(req, res)
+}
+
+function clefCallback (req, res, done) {
+  clef.getLoginInformation({code: req.query.code}, function (err, data) {
+    if (err) return done(err)
+    User.findOne({email: data.email}, function (err, user) {
+      if (err) return done(err)
+      if (user) {
+        const token = jwt.sign(user, process.env.JWTSECRET)
+        res.redirect('/login?token=' + token)
+      } else {
+        var newUser = new User()
+        newUser.email = data.email
+        newUser.clef.id = data.clef_id
+        newUser.save(function (err, user) {
+          if (err) return done(err)
+          const token = jwt.sign(user, process.env.JWTSECRET)
+          res.redirect('/login?token=' + token)
+        })
+      }
+    })
   })
 }
 
@@ -60,5 +84,7 @@ module.exports = {
   twitterCallback: twitterCallback,
   googleLogin: googleLogin,
   googleCallback: googleCallback,
+  fitbitLogin: fitbitLogin,
+  fitbitCallback: fitbitCallback,
   clefCallback: clefCallback
 }

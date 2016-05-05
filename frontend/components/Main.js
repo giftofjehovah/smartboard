@@ -15,9 +15,19 @@ function authCheck (nextState, replace) {
   }
 }
 
+function checkURL (nextState, replace) {
+  var token = window.location.search.substring(1).split('=')
+  if (token[0] === 'token') {
+    window.localStorage.setItem('token', token[1])
+    replace({
+      pathname: '/dashboard'
+    })
+  }
+}
+
 var routes = (
   <Router history={browserHistory}>
-    <Route path='/login' component={UserLogin} />
+    <Route path='/login' component={UserLogin} onEnter={checkURL}/>
     <Route path='/signup' component={UserSignUp} />
     <Route path='/dashboard' component={Dashboard} onEnter={authCheck}/>
     <Route path='*' component={NoRoute} />

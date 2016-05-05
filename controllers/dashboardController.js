@@ -51,6 +51,7 @@ function saveGoogleInfo (req, res, done) {
 function getCalendar (user, res, done) {
   var calendar = new gcal.GoogleCalendar(user.google[0].accessToken)
   calendar.events.list('primary', function (err, events) {
+    console.log(err)
     if (err) return done(err)
     res.json(events)
   })

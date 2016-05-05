@@ -5,6 +5,7 @@ const LocalStrategy = require('passport-local').Strategy
 const FacebookStrategy = require('passport-facebook').Strategy
 const TwitterStrategy = require('passport-twitter').Strategy
 const GoogleStrategy = require('passport-google-oauth2').Strategy
+const FitbitStrategy = require('passport-fitbit-oauth2').FitbitOAuth2Strategy
 
 const localSignUp = new LocalStrategy({
   usernameField: 'email',
@@ -108,12 +109,21 @@ const google = new GoogleStrategy({
   })
 })
 
+const fitbit = new FitbitStrategy({
+  clientID: process.env.FITBIT_CLIENT_ID,
+  clientSecret: process.env.FITBIT_SECRET_ID,
+  callbackURL: process.env.WEBURL + '/auth/fitbit/callback'
+}, function (accessToken, refresh_token, profile, done) {
+  console.log(profile)
+})
+
 function passport (passport) {
   passport.use('local-signup', localSignUp)
   passport.use('local-signin', localSignIn)
   passport.use('facebook', facebook)
   passport.use('twitter', twitter)
   passport.use('google', google)
+  passport.use('fitbit', fitbit)
 }
 
 module.exports = passport
