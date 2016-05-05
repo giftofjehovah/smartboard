@@ -51,6 +51,7 @@ const facebook = new FacebookStrategy({
   profileFields: ['name', 'emails']
 }, function (access_token, refresh_token, profile, done) {
   User.findOne({email: profile.emails[0].value}, function (err, user) {
+    console.log(profile)
     if (err) return done(err)
     if (user) return done(null, user)
     var newUser = new User()

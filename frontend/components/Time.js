@@ -29,7 +29,7 @@ class Time extends React.Component {
       <div className='card' style={styles}>
         <div className='card-header text-center'>
           <h4 className='card-title'><small className='card-meta'><i className='fa fa-clock-o fa-2x'></i> Time</small></h4>
-          <h3> Good Morning Leok </h3>
+          <h3> Good Morning {window.localStorage.getItem('name')} </h3>
         </div>
           <div className='card-body text-center'>
             <h5>{moment().format('dddd, MMMM Do YYYY')}</h5>
