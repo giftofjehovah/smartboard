@@ -19,7 +19,7 @@ class UserLogin extends React.Component {
     socket.on('connect', function () {
       console.log('connected')
       socket.on('clef', function (status) {
-          console.log(status)
+        console.log(status)
       })
     })
   }
