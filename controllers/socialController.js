@@ -15,7 +15,6 @@ function facebookCallback (req, res, done) {
     if (err) return done(err)
     const token = jwt.sign(user, process.env.JWTSECRET)
     var url = '/success?token=' + token + '&name=' + user.fb.firstName
-    console.log(user.twitter[0])
     if (user.twitter[0] !== null && typeof user.twitter[0] !== 'undefined') url = url + '&twitter=' + user.twitter[0].id
     if (user.google[0] !== null && typeof user.twitter[0] !== 'undefined') url = url + '&google=' + user.google[0].id
     res.redirect(url)
@@ -62,11 +61,14 @@ function clefCallback (req, res, done) {
       if (err) return done(err)
       if (user) {
         const token = jwt.sign(user, process.env.JWTSECRET)
-        res.redirect('/login?token=' + token)
+        var url = '/login?token=' + token + '&name=' + user.fb.firstName
+        if (user.twitter[0] !== null && typeof user.twitter[0] !== 'undefined') url = url + '&twitter=' + user.twitter[0].id
+        if (user.google[0] !== null && typeof user.twitter[0] !== 'undefined') url = url + '&google=' + user.google[0].id
+        res.redirect(url)
       } else {
         var newUser = new User()
         newUser.email = data.email
-        newUser.clef.id = data.clef_id
+        newUser.clef.id = data.id
         newUser.save(function (err, user) {
           if (err) return done(err)
           const token = jwt.sign(user, process.env.JWTSECRET)
