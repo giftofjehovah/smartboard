@@ -100,7 +100,7 @@ class Tweets extends React.Component {
     }
 
     var cardBodyStyles = {
-      height: '92.5%',
+      height: '92%',
       overflow: 'scroll'
     }
 
