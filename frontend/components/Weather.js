@@ -45,7 +45,7 @@ class Weather extends React.Component {
           <h6> {this.state.summary} </h6>
         </div>
         <div className='card-body'>
-          <div className='card' style={columnStyle} >
+          <div className='card' style={columnStyle}>
             <div className='columns'>
               <div className='column col-12'>
                 <h6><small className='card-meta'>Tomorrow</small></h6>

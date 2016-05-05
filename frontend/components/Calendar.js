@@ -1,30 +1,76 @@
 import React from 'react'
 import Google from '../models/Google'
+import moment from 'moment'
 
 class Calendar extends React.Component {
 
+  constructor () {
+    super()
+    this.state = {
+      events: [],
+      button: ''
+    }
+  }
+
+  componentWillMount () {
+    var buttonStyles = {
+      top: '200px'
+    }
+
+    var googleButton = (<button onClick={this.firstLogin.bind(this)} className='btn btn-primary btn-lg centered' style={buttonStyles}><i className='fa fa-twitter-square'></i> Login with Google </button>)
+    if (window.localStorage.getItem('google') && window.localStorage.getItem('google') !== 'undefined') {
+      googleButton = ''
+    }
+    this.setState({
+      button: googleButton
+    })
+  }
+
   firstLogin () {
+    var _this = this
     var google = new Google()
     google.login(function () {
       google.getCalender(function (list) {
-        console.log(list)
+        var reversedArray = list.items.reverse()
+        var lowFatArray = reversedArray.slice(0, 9)
+        var newCalendar = lowFatArray.map(_this.transformCalendar)
+        _this.setState({
+          button: '',
+          events: newCalendar
+        })
       })
     })
   }
 
+  transformCalendar (event) {
+    return (
+      <div className='card'>
+        <div className='columns'>
+          <div className='column col-12'>
+            <h6>dates: {moment(event.end.dateTime).format('Do MMM HH:mm')}</h6>
+            <h6>summary: {event.summary}</h6>
+            <h6>location: {event.location}</h6>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   render () {
-    var buttonStyles = {
-      top: '200px'
-    }
     var styles = {
       height: '45vh',
-      border: 'solid 2px darkgrey'
+      border: 'solid 2px darkgrey',
+      overflow: 'scroll'
     }
+
     return (
       <div className='card' style={styles}>
         <div className='card-header text-center'>
           <h4 className='card-title'><small className='card-meta'><i className='fa fa-calendar-check-o fa-2x'></i> Calendar</small></h4>
-          <button onClick={this.firstLogin.bind(this)} className='btn btn-primary btn-lg centered' style={buttonStyles}><i className='fa fa-twitter-square'></i> Login with Google</button>
+          {this.state.button}
+        </div>
+        <div className='card-body'>
+          {this.state.events}
         </div>
       </div>
     )
