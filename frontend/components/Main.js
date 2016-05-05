@@ -16,9 +16,16 @@ function authCheck (nextState, replace) {
 }
 
 function checkURL (nextState, replace) {
-  var token = window.location.search.substring(1).split('=')
-  if (token[0] === 'token') {
-    window.localStorage.setItem('token', token[1])
+  var params = window.location.search.substring(1).split('&')
+  var objParams = {}
+  for (var i = 0; i < params.length; i++) {
+    var obj = params[i].split('=')
+    objParams[obj[0]] = obj[1]
+  }
+  for (var key in objParams) {
+    window.localStorage.setItem(key, objParams[key])
+  }
+  if (window.localStorage.getItem('token')) {
     replace({
       pathname: '/dashboard'
     })
