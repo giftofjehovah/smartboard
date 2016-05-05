@@ -1,6 +1,7 @@
 import React from 'react'
 import Twitter from '../models/Twitter'
 import io from 'socket.io-client'
+import {browserHistory} from 'react-router'
 
 class Tweets extends React.Component {
 
@@ -43,6 +44,11 @@ class Tweets extends React.Component {
       _this.getTweetsAndStreamTweets()
       _this.setState({button: ''})
     })
+  }
+
+  logOut () {
+    window.localStorage.clear()
+    browserHistory.push('/login')
   }
 
   streamTweets () {
@@ -98,10 +104,17 @@ class Tweets extends React.Component {
       overflow: 'scroll'
     }
 
+    var exitButton = {
+      display: 'flex'
+    }
+
     return (
       <div className='card' style={styles}>
-        <div className='card-header text-center'>
-          <h4 className='card-title'><small className='card-meta'><i className='fa fa-twitter fa-2x'></i>Tweets</small></h4>
+        <div style={exitButton}>
+          <button onClick={this.logOut} className='btn btn-link'><span className='fa fa-sign-out fa-2x'></span> </button>
+          <div className='card-header text-center'>
+            <h4 className='card-title text-center'><small className='card-meta'><i className='fa fa-twitter fa-2x'></i>Tweets</small></h4>
+          </div>
         </div>
         <div className='card-body' style={cardBodyStyles}>
           {this.state.button}
