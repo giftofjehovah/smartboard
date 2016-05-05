@@ -4,7 +4,7 @@ class News extends React.Component {
   render () {
     var styles = {
       height: '93vh',
-      border: 'solid 1px darkgrey'
+      border: 'solid 2px darkgrey'
     }
     return (
       <div className='card' style={styles}>

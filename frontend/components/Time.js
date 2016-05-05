@@ -22,7 +22,7 @@ class Time extends React.Component {
   render () {
     var styles = {
       height: '45vh',
-      border: 'solid 1px darkgrey'
+      border: 'solid 2px darkgrey'
     }
 
     return (

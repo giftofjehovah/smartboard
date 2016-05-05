@@ -90,8 +90,7 @@ class Tweets extends React.Component {
   render () {
     var styles = {
       height: '93vh',
-      border: 'solid 1px darkgrey'
-      // backgroundColor: '#fdfcfc'
+      border: 'solid 2px darkgrey'
     }
 
     var cardBodyStyles = {

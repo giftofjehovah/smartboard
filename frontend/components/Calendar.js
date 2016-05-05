@@ -18,7 +18,7 @@ class Calendar extends React.Component {
     }
     var styles = {
       height: '45vh',
-      border: 'solid 1px darkgrey'
+      border: 'solid 2px darkgrey'
     }
     return (
       <div className='card' style={styles}>

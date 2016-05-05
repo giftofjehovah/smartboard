@@ -16,10 +16,9 @@ class Weather extends React.Component {
     var _this = this
     var weatherForecast = new WeatherForecast()
     weatherForecast.getWeather(function (data) {
-      console.log(data)
       _this.setState({
         icon: data.daily.data[0].icon,
-        temperature: data.currently.temperature,
+        temperature: Math.ceil(data.currently.temperature) + '°C',
         summary: data.daily.data[0].summary,
         nextDay: data.daily.data[1].summary
       })
@@ -29,20 +28,20 @@ class Weather extends React.Component {
   render () {
     var styles = {
       height: '45vh',
-      border: 'solid 1px darkgrey'
+      border: 'solid 2px darkgrey'
     }
 
     var columnStyle = {
-      'padding-left': '15px',
-      'padding-right': '15px'
+      paddingLeft: '15px',
+      paddingRight: '15px'
     }
 
     return (
       <div className='card' style={styles}>
         <div className='card-header text-center'>
-          <h4 className='card-title'><small className='card-meta'><i className='fa fa-sun-o fa-1x'></i> Weather</small></h4>
+          <h4 className='card-title'><small className='card-meta'><i className='fa fa-sun-o fa-2x'></i> Weather</small></h4>
           <h6><span className='label label-primary'>{this.state.icon}</span></h6>
-          <h2> {this.state.temperature} </h2>
+          <h3> {this.state.temperature}</h3>
           <h6> {this.state.summary} </h6>
         </div>
         <div className='card-body'>
