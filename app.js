@@ -22,17 +22,16 @@ const server = require('http').createServer(app)
 mongoose.connect(mongoUri)
 server.listen(port)
 const io = require('socket.io')(server)
-// if (app.get('env') === 'development') {
-  // require('dotenv').config()
+if (app.get('env') === 'development') {
+  require('dotenv').config()
   app.use(function (err, req, res, next) {
-    console.log('error: ', err.message)
     res.status(err.status || 500)
     res.json({
       message: err.message,
       error: err
     })
   })
-// }
+}
 
 app.use(logger('dev'))
 app.use(bodyParser())
