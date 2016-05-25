@@ -4,6 +4,7 @@ const Google = require('../models/google')
 const twitterController = require('./twitterController')
 const Forecast = require('forecast.io')
 const gcal = require('google-calendar')
+const request = require('request')
 
 function saveTwitterInfo (req, res, done) {
   User.findOne({email: req.user._doc.email}, function (err, user) {
@@ -16,6 +17,13 @@ function saveTwitterInfo (req, res, done) {
         twitterController.twitter(req, res, done, user.twitter[0].token, user.twitter[0].tokenSecret)
       })
     })
+  })
+}
+
+function getQuote (req, res, done) {
+  request.get('http://quotes.rest/qod.json', function (err, res, body) {
+    if (err) throw err
+    res.json(body)
   })
 }
 
@@ -60,5 +68,6 @@ function getCalendar (user, res, done) {
 module.exports = {
   saveTwitterInfo: saveTwitterInfo,
   saveGoogleInfo: saveGoogleInfo,
-  getWeather: getWeather
+  getWeather: getWeather,
+  getQuote: getQuote
 }

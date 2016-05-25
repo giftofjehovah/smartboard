@@ -11,6 +11,9 @@ router.route('/weather')
 router.route('/google')
   .post(dashboardController.saveGoogleInfo)
 
+router.route('/quote')
+    .post(dashboardController.getQuote)
+
 // router.route('/calendar')
 //   .post(dashboardController.getCalendar)
 
