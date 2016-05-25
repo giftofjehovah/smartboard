@@ -1,7 +1,7 @@
 
 function setUrl () {
-  var link = window.location.href.split('/')
-  return 'http://' + link[2]
+  var link = window.location.host
+  return link
 }
 
 export default {setUrl: setUrl}

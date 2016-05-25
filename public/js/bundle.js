@@ -338,6 +338,44 @@ var Dashboard = function (_React$Component) {
         SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/themes/flat.css');
         SpeechKITT.vroom();
       }
+
+      //     var recognition = new webkitSpeechRecognition();
+      //
+      // recognition.onstart = function(event){
+      //     console.log("onstart", event);
+      // }
+      //
+      // // Process parsed result
+      // recognition.onresult = function(event){
+      //     console.log("onresult", event);
+      // }
+      //
+      // // Handle error
+      // recognition.onerror = function(event){
+      //     console.log("onerror", event);
+      // }
+      //
+      // // Housekeeping after success or failed parsing
+      // recognition.onend = function(){
+      //     console.log("onend");
+      // }
+      // recognition.start();
+
+      // Tell KITT the command to use to start listening
+      // SpeechKITT.setStartCommand(function() {recognition.start()});
+      //
+      // // Tell KITT the command to use to abort listening
+      // SpeechKITT.setAbortCommand(function() {recognition.abort()});
+      //
+      // // Register KITT's recognition start event with the browser's Speech Recognition
+      // recognition.addEventListener('start', SpeechKITT.onStart);
+      //
+      // // Register KITT's recognition end event with the browser's Speech Recognition
+      // recognition.addEventListener('end', SpeechKITT.onEnd);
+      // SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/themes/flat.css');
+      //
+      // // Render KITT's interface
+      // SpeechKITT.vroom();
     }
   }, {
     key: 'render',
