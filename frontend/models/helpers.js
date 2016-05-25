@@ -1,6 +1,6 @@
 
 function setUrl () {
-  var link = window.location.host
+  var link = 'https://' + window.location.host
   return link
 }
 

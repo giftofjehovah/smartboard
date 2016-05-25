@@ -1929,14 +1929,14 @@ var Weather = function () {
 exports.default = Weather;
 
 },{"./helpers":18,"geolocation":185,"request":487}],18:[function(require,module,exports){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
 function setUrl() {
-  var link = window.location.host;
+  var link = 'https://' + window.location.host;
   return link;
 }
 
