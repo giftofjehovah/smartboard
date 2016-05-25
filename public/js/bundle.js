@@ -1746,7 +1746,7 @@ var Quote = function () {
       request.get(_helpers2.default.setUrl() + '/dashboard/quote', function (err, res, body) {
         if (err) throw err;
         cb(res, body);
-      });
+      }).auth(null, null, true, window.localStorage.getItem('token'));
     }
   }]);
 
