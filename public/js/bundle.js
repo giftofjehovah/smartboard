@@ -1929,15 +1929,15 @@ var Weather = function () {
 exports.default = Weather;
 
 },{"./helpers":18,"geolocation":185,"request":487}],18:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
 function setUrl() {
-  var link = window.location.href.split('/');
-  return 'http://' + link[2];
+  var link = window.location.host;
+  return link;
 }
 
 exports.default = { setUrl: setUrl };
