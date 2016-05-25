@@ -12,7 +12,7 @@ router.route('/google')
   .post(dashboardController.saveGoogleInfo)
 
 router.route('/quote')
-    .post(dashboardController.getQuote)
+  .get(dashboardController.getQuote)
 
 // router.route('/calendar')
 //   .post(dashboardController.getCalendar)

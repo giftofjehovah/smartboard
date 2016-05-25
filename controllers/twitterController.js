@@ -2,10 +2,6 @@ const Twitter = require('twitter')
 var client
 
 function twitter (req, res, done, token, tokenSecret) {
-  console.log(process.env.TWITTER_APP_KEY)
-  console.log(process.env.TWITTER_APP_CONSUMER_SECRET)
-  console.log(token)
-  console.log(tokenSecret)
   client = new Twitter({
     consumer_key: process.env.TWITTER_APP_KEY,
     consumer_secret: process.env.TWITTER_APP_CONSUMER_SECRET,

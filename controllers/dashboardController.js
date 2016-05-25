@@ -21,9 +21,9 @@ function saveTwitterInfo (req, res, done) {
 }
 
 function getQuote (req, res, done) {
-  request.get('http://quotes.rest/qod.json', function (err, res, body) {
+  request.get('http://quotes.rest/qod.json', function (err, response, body) {
     if (err) throw err
-    res.json(body)
+    res.json(JSON.parse(body))
   })
 }
 
